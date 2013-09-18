@@ -76,10 +76,14 @@ public:
   pointer allocate(size_type num, const_void_pointer hint = 0) { return alloc_size(num*sizeof(T)); }
 
   static pointer alloc_size(size_type size) {
+#ifdef HAVE_POSIX_MEMALIGN
     pointer ptr = NULL;
     int __UNUSED result = posix_memalign((void**)&ptr, LT_SMP_CACHE_BYTES, size);
-
     return ptr;
+#else
+    void* ptr = malloc(size);
+    return static_cast<pointer>(ptr);
+#endif
   }
 
   void construct (pointer p, const T& value) { new((void*)p)T(value); }

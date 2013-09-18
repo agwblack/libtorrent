@@ -106,4 +106,4 @@ SRC_FILES := \
 
 MY_LOCAL = $(call local-rel-path, $(MY_PATH))
 
-LOCAL_SRC_FILES += $(addprefix $(MY_LOCAL)/,$(SRC_FILES))
+LOCAL_SRC_FILES += $(addprefix $(MY_LOCAL),$(SRC_FILES))
